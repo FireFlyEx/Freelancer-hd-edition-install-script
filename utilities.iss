@@ -33,6 +33,68 @@ begin
   end;
 end;
 
+// Write to INI file
+function WriteToIni(Filepath: string; section: string; key: string; toWrite: string): BOOL;
+begin
+  SetIniString(section, key, toWrite, Filepath);
+end;
+
+// Get from INI file
+function ReadFromIni(Filepath: string; section: string; key: string): BOOL;
+begin
+  Result := GetIniString(section, key, '', Filepath);
+end;
+
+// Save settings for later
+procedure SaveInstallerConfig();
+var
+  ConfigFile: string;
+begin
+  ConfigFile := ExpandConstant('{app}\EXE\flhd.ini')
+
+  WriteToIni(ConfigFile, 'flhd', 'StoryMode', StoryMode.ItemIndex); // 0 vanilla, 1 normal OpenSP, 2 pirate OpenSP
+  WriteToIni(ConfigFile, 'flhd', 'CallSign', CallSign.Values); // 1-14
+  if PitchVariations.Values[0] then
+    WriteToIni(ConfigFile, 'flhd', 'PitchVariations', true); // 0 extended voices, 1 vanilla
+  else
+    WriteToIni(ConfigFile, 'flhd', 'PitchVariations', false); // 0 extended voices, 1 vanilla
+  WriteToIni(ConfigFile, 'flhd', 'SkipIntros', SkipIntros.Checked); // 0 disabled, 1 enabled
+  WriteToIni(ConfigFile, 'flhd', 'LightingFixGraphics', LightingFixGraphicsApi.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'WidescreenHud', WidescreenHud.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DarkHud', DarkHud.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'VanillaIcons', VanillaIcons.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'FlatIcons', FlatIcons.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'BestOptions', BestOptions.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'MissileEffects', MissileEffects.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'ExplosionEffects', ExplosionEffects.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'ShinyReflections', ShinyReflections.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'ShiniestReflections', ShiniestReflections.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'EngineTrails', EngineTrails.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'EnglishImprovements', EnglishImprovements.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'NewSaveFolder', NewSaveFolder.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'LevelRequirements', LevelRequirements.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'RussianFonts', RussianFonts.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'SinglePlayer', SinglePlayer.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'PlanetScape', PlanetScape.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'WeaponGroups', WeaponGroups.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'JumpTunnel5Sec', JumpTunnel5Sec.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'JumpTunnel2Sec', JumpTunnel2Sec.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'JumpTunnelSkip', JumpTunnelSkip.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DxWrapperGraphicsApi', DxWrapperGraphicsApi.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DxWrapperReShade', DxWrapperReShade.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DxWrapperBloom', DxWrapperBloom.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DxWrapperHdr', DxWrapperHdr.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DxWrapperSaturation', DxWrapperSaturation.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DxWrapperSharpening', DxWrapperSharpening.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DgVoodooGraphicsApi', DgVoodooGraphicsApi.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DgVoodooReShade', DgVoodooReShade.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DgVoodooBloom', DgVoodooBloom.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DgVoodooHdr', DgVoodooHdr.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DgVoodooSaturation', DgVoodooSaturation.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DgVoodooSharpening', DgVoodooSharpening.Checked);
+  WriteToIni(ConfigFile, 'flhd', 'DoNotPauseOnAltTab', DoNotPauseOnAltTab.Checked);
+end;
+
 // Used to copy the vanilla install to {app} also the extracted .zip file back to {app}
 procedure DirectoryCopy(SourcePath, DestPath: string; Move: Boolean);
 var

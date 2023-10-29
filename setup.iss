@@ -10,7 +10,7 @@
 #define MyFolderName "freelancer-hd-edition-" + MyAppVersion
 #define MyZipName "freelancerhd"
 ; This variable controls whether the zip is shipped with the exe or downloaded from a mirror
-#define AllInOneInstall true
+#define AllInOneInstall false
 #dim Mirrors[2] {"https://archive.org/download/freelancer-hd-edition-" + MyAppVersion + "/freelancer-hd-edition-" + MyAppVersion + ".7z", "https://github.com/BC46/freelancer-hd-edition/archive/refs/tags/" + MyAppVersion + ".zip"}
 ; TODO: Update sizes for each release
 #if AllInOneInstall

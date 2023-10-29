@@ -278,6 +278,8 @@ begin
 
   dir := 'C:\Program Files (x86)\Microsoft Games\Freelancer'
 
+  //LoadInstallerConfig();
+
   // Initialize DataDirPage and add content
   DataDirPage := CreateInputDirPage(wpInfoBefore,
   'Select Freelancer installation', 'Where is Freelancer installed?',
@@ -286,8 +288,8 @@ begin
   False, '');
   DataDirPage.Add('');
   
-  // If the Reg key exists, use its content to populate the folder location box. Use the default path if othwerise.
-  RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Wow6432Node\Microsoft\Microsoft Games\Freelancer\1.0', 'AppPath', dir)
+  // If the Reg key exists, use its content to populate the folder location box. Use the default path if otherwise.
+  RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Microsoft\Microsoft Games\Freelancer\1.0', 'AppPath', dir)
   DataDirPage.Values[0] := dir
   
   // Initialize CallSign page and add content
@@ -1379,4 +1381,5 @@ begin
       + #13#10 + 'd3d9.dll (DxWrapper ReShade)'
       + #13#10 + 'dxgi.dll (dgVoodoo ReShade)'), mbError, MB_OK);
   end;
+  SaveInstallerConfig();
 end;

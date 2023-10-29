@@ -45,11 +45,13 @@ begin
   // Option is checked
   if PitchVariations.Values[0] then
     begin
-    // Rename vanilla faction properties file
-    RenameFile(FactionPropPath + 'faction_prop.ini', FactionPropPath + 'faction_prop_vanilla.ini')
-
-    // Rename extended voices faction properties file
-    RenameFile(FactionPropPath + 'faction_prop_extended_voices.ini', FactionPropPath + 'faction_prop.ini')
+      // Rename extended voices faction properties file
+      CopyFile(FactionPropPath + 'faction_prop_extended_voices.ini', FactionPropPath + 'faction_prop.ini')
+    end
+  else
+    begin
+      // Rename vanilla faction properties file
+      CopyFile(FactionPropPath + 'faction_prop_vanilla.ini', FactionPropPath + 'faction_prop.ini')
     end;
 end;
 
@@ -65,41 +67,50 @@ begin
     TextStringsPath := ExpandConstant('{app}\EXE\')
     AudioPath := ExpandConstant('{app}\DATA\AUDIO\')
 
-    // Rename vanilla intro
-    RenameFile(FreelancerIntroPath + 'fl_intro.wmv', FreelancerIntroPath + 'fl_intro_vanilla.wmv')
+    if not (FileExists(FreelancerIntroPath + 'fl_intro_vanilla.wmv')) then
+      begin
+        // Backup vanilla intro
+        CopyFile(FreelancerIntroPath + 'fl_intro.wmv', FreelancerIntroPath + 'fl_intro_vanilla.wmv')
+      end;
+    end;
 
-    // Rename new HD intro
-    RenameFile(FreelancerIntroPath + 'fl_intro_en_hd.wmv', FreelancerIntroPath + 'fl_intro.wmv')
+    // Overwrite new HD intro
+    CopyFile(FreelancerIntroPath + 'fl_intro_en_hd.wmv', FreelancerIntroPath + 'fl_intro.wmv')
+
+    // Overwrite new resource files
+    CopyFile(TextStringsPath + 'resources_tsr.dll', TextStringsPath + 'resources.dll')
+    CopyFile(TextStringsPath + 'offerbriberesources_tsr.dll', TextStringsPath + 'offerbriberesources.dll')
+    CopyFile(TextStringsPath + 'nameresources_tsr.dll', TextStringsPath + 'nameresources.dll')
+    CopyFile(TextStringsPath + 'misctextinfo2_tsr.dll', TextStringsPath + 'misctextinfo2.dll')
+    CopyFile(TextStringsPath + 'misctext_tsr.dll', TextStringsPath + 'misctext.dll')
+    CopyFile(TextStringsPath + 'infocards_tsr.dll', TextStringsPath + 'infocards.dll')
+    CopyFile(TextStringsPath + 'equipresources_tsr.dll', TextStringsPath + 'equipresources.dll')
+
+    // Overwrite new audio files
+    CopyFile(AudioPath + 'nnvoice_eng.utf', AudioPath + 'nnvoice.utf')
+    CopyFile(AudioPath + 'pilot_f_ill_m02_eng.utf', AudioPath + 'pilot_f_ill_m02.utf')
+    CopyFile(AudioPath + 'pilot_f_ill_m02a_eng.utf', AudioPath + 'pilot_f_ill_m02a.utf')
+    CopyFile(AudioPath + 'pilot_f_ill_m02b_eng.utf', AudioPath + 'pilot_f_ill_m02b.utf')
+    end
+  else
+    begin
+    // Rename vanilla intro
+    CopyFile(FreelancerIntroPath + 'fl_intro_vanilla.wmv', FreelancerIntroPath + 'fl_intro.wmv')
 
     // Rename vanilla resource files
-    RenameFile(TextStringsPath + 'resources.dll', TextStringsPath + 'resources_vanilla.dll')
-    RenameFile(TextStringsPath + 'offerbriberesources.dll', TextStringsPath + 'offerbriberesources_vanilla.dll')
-    RenameFile(TextStringsPath + 'nameresources.dll', TextStringsPath + 'nameresources_vanilla.dll')
-    RenameFile(TextStringsPath + 'misctextinfo2.dll', TextStringsPath + 'misctextinfo2_vanilla.dll')
-    RenameFile(TextStringsPath + 'misctext.dll', TextStringsPath + 'misctext_vanilla.dll')
-    RenameFile(TextStringsPath + 'infocards.dll', TextStringsPath + 'infocards_vanilla.dll')
-    RenameFile(TextStringsPath + 'equipresources.dll', TextStringsPath + 'equipresources_vanilla.dll')
-
-    // Rename new resource files
-    RenameFile(TextStringsPath + 'resources_tsr.dll', TextStringsPath + 'resources.dll')
-    RenameFile(TextStringsPath + 'offerbriberesources_tsr.dll', TextStringsPath + 'offerbriberesources.dll')
-    RenameFile(TextStringsPath + 'nameresources_tsr.dll', TextStringsPath + 'nameresources.dll')
-    RenameFile(TextStringsPath + 'misctextinfo2_tsr.dll', TextStringsPath + 'misctextinfo2.dll')
-    RenameFile(TextStringsPath + 'misctext_tsr.dll', TextStringsPath + 'misctext.dll')
-    RenameFile(TextStringsPath + 'infocards_tsr.dll', TextStringsPath + 'infocards.dll')
-    RenameFile(TextStringsPath + 'equipresources_tsr.dll', TextStringsPath + 'equipresources.dll')
+    CopyFile(TextStringsPath + 'resources_vanilla.dll', TextStringsPath + 'resources.dll')
+    CopyFile(TextStringsPath + 'offerbriberesources_vanilla.dll', TextStringsPath + 'offerbriberesources.dll')
+    CopyFile(TextStringsPath + 'nameresources_vanilla.dll', TextStringsPath + 'nameresources.dll')
+    CopyFile(TextStringsPath + 'misctextinfo2_vanilla.dll', TextStringsPath + 'misctextinfo2.dll')
+    CopyFile(TextStringsPath + 'misctext_vanilla.dll', TextStringsPath + 'misctext.dll')
+    CopyFile(TextStringsPath + 'infocards_vanilla.dll', TextStringsPath + 'infocards.dll')
+    CopyFile(TextStringsPath + 'equipresources_vanilla.dll', TextStringsPath + 'equipresources.dll')
 
     // Rename vanilla audio files
-    RenameFile(AudioPath + 'nnvoice.utf', AudioPath + 'nnvoice_vanilla.utf')
-    RenameFile(AudioPath + 'pilot_f_ill_m02.utf', AudioPath + 'pilot_f_ill_m02_vanilla.utf')
-    RenameFile(AudioPath + 'pilot_f_ill_m02a.utf', AudioPath + 'pilot_f_ill_m02a_vanilla.utf')
-    RenameFile(AudioPath + 'pilot_f_ill_m02b.utf', AudioPath + 'pilot_f_ill_m02b_vanilla.utf')
-
-    // Rename new audio files
-    RenameFile(AudioPath + 'nnvoice_eng.utf', AudioPath + 'nnvoice.utf')
-    RenameFile(AudioPath + 'pilot_f_ill_m02_eng.utf', AudioPath + 'pilot_f_ill_m02.utf')
-    RenameFile(AudioPath + 'pilot_f_ill_m02a_eng.utf', AudioPath + 'pilot_f_ill_m02a.utf')
-    RenameFile(AudioPath + 'pilot_f_ill_m02b_eng.utf', AudioPath + 'pilot_f_ill_m02b.utf')
+    CopyFile(AudioPath + 'nnvoice_vanilla.utf', AudioPath + 'nnvoice.utf')
+    CopyFile(AudioPath + 'pilot_f_ill_m02_vanilla.utf', AudioPath + 'pilot_f_ill_m02.utf')
+    CopyFile(AudioPath + 'pilot_f_ill_m02a_vanilla.utf', AudioPath + 'pilot_f_ill_m02a.utf')
+    CopyFile(AudioPath + 'pilot_f_ill_m02b_vanilla.utf', AudioPath + 'pilot_f_ill_m02b.utf')
     end;
 end;
 
@@ -107,23 +118,42 @@ procedure EnableOpenSP(FileName: string);
 var
   NewPlayerPath: string;
   Mission13Path: string;
+  MyRestartFolder: string;
+  MyRestartFolderHD: string;
 begin
   NewPlayerPath := ExpandConstant('{app}\EXE\newplayer.fl')
   Mission13Path := ExpandConstant('{app}\DATA\MISSIONS\M13\')
 
-  // Ensure the mission 13 script is used when starting a new game
-  FileReplaceString(NewPlayerPath, 'Mission = Mission_01a', 'Mission = Mission_13')
+  if (not FileName = 'vanilla') then
+    begin
+      // Ensure the mission 13 script is used when starting a new game
+      FileReplaceString(NewPlayerPath, 'Mission = Mission_01a', 'Mission = Mission_13')
+  
+      // Overwrite new open sp file
+      CopyFile(Mission13Path + 'm13_opensp_' + FileName + '.ini', Mission13Path + 'm13.ini')
+    end
+  else
+    begin
+      // Ensure the mission 13 script is used when starting a new game
+      FileReplaceString(NewPlayerPath, 'Mission = Mission_13', 'Mission = Mission_01a')
+  
+      // Overwrite new open sp file
+      CopyFile(Mission13Path + 'm13_opensp_' + FileName + '.ini', Mission13Path + 'm13.ini')
+    end;
 
-  // Rename vanilla mission 13 file
-  RenameFile(Mission13Path + 'm13.ini', Mission13Path + 'm13_vanilla.ini')
+  MyRestartFolder := ExpandConstant('{userdocs}\My Games\Freelancer\Accts\SinglePlayer\Restart.fl')
+  MyRestartFolderHD := ExpandConstant('{userdocs}\My Games\FreelancerHD\Accts\SinglePlayer\Restart.fl')
 
-  // Rename new open sp file
-  RenameFile(Mission13Path + 'm13_opensp_' + FileName + '.ini', Mission13Path + 'm13.ini')
+  // Delete restart.fl file
+  DeleteFileNow(MyRestartFolder);
+  DeleteFileNow(MyRestartFolderHD);
 end;
 
 procedure Process_SinglePlayerMode();
 begin
-  if StoryMode.ItemIndex = 1 then // OSP Normal selected
+  if StoryMode.ItemIndex = 0 then // Default story
+    EnableOpenSP('vanilla')
+  else if StoryMode.ItemIndex = 1 then // OSP Normal selected
     EnableOpenSP('normal')
   else if StoryMode.ItemIndex = 2 then // OSP Pirate selected
     EnableOpenSP('pirate');
@@ -137,7 +167,13 @@ begin
 
   if NewSaveFolder.Checked then
     begin
-    FileReplaceString(FlPlusPlusPath, 'save_folder_name = Freelancer', 'save_folder_name = FreelancerHD')
+      WriteToIni(FlPlusPlusPath, 'flplusplus', 'save_folder_name', 'FreelancerHD');
+    //FileReplaceString(FlPlusPlusPath, 'save_folder_name = Freelancer', 'save_folder_name = FreelancerHD')
+    end
+  else
+    begin
+      WriteToIni(FlPlusPlusPath, 'flplusplus', 'save_folder_name', 'Freelancer');
+    //FileReplaceString(FlPlusPlusPath, 'save_folder_name = FreelancerHD', 'save_folder_name = Freelancer')
     end;
 end;
 
@@ -145,17 +181,26 @@ procedure Process_LevelRequirements();
 var
   ExePath: string;
 begin
-  if not LevelRequirements.Checked then
-    exit;
-
   ExePath := ExpandConstant('{app}\EXE\')
 
-  WriteHexToFile(ExePath + 'Freelancer.exe', $080499, 'EB'); // Allows the purchase of equipment below the required level
-  WriteHexToFile(ExePath + 'Freelancer.exe', $082E95, 'EB'); // Changes the display of equipment below the required level
-  WriteHexToFile(ExePath + 'Freelancer.exe', $0B948D, 'EB'); // Allows the purchase of ships below the required level
+  if not LevelRequirements.Checked then
+    begin
+      WriteHexToFile(ExePath + 'Freelancer.exe', $080499, '74');
+      WriteHexToFile(ExePath + 'Freelancer.exe', $082E95, '74');
+      WriteHexToFile(ExePath + 'Freelancer.exe', $0B948D, '74');
   
-  // Disable the MP Rep plugin because it's incompatible with the above patches
-  FileReplaceString(ExePath + 'dacom.ini', 'MPRep.dll', ';MPRep.dll')
+      // Enable the MP Rep plugin
+      FileReplaceString(ExePath + 'dacom.ini', ';MPRep.dll', 'MPRep.dll')
+    end
+  else
+    begin
+      WriteHexToFile(ExePath + 'Freelancer.exe', $080499, 'EB'); // Allows the purchase of equipment below the required level
+      WriteHexToFile(ExePath + 'Freelancer.exe', $082E95, 'EB'); // Changes the display of equipment below the required level
+      WriteHexToFile(ExePath + 'Freelancer.exe', $0B948D, 'EB'); // Allows the purchase of ships below the required level
+  
+      // Disable the MP Rep plugin because it's incompatible with the above patches
+      FileReplaceString(ExePath + 'dacom.ini', 'MPRep.dll', ';MPRep.dll')
+    end;
 end;
 
 // Processes the Startup Logo option. Renames files depending on what option is selected
@@ -170,7 +215,7 @@ begin
   // If not the default
   if(not StartupRes.Values[2]) then begin
     // Rename old file away
-    RenameFile(NewFile,FolderPath + 'startupscreen_1280_vanilla.tga');
+    CopyFile(NewFile,FolderPath + 'startupscreen_1280_vanilla.tga');
     // Rename the correct startup res depending on the selected option
     if(StartupRes.Values[1]) then // 720p 16:9
       OldFile := FolderPath + 'startupscreen_1280_1280x720.tga'
@@ -283,6 +328,7 @@ end;
 procedure Process_Console();
 begin
   if SinglePlayer.Checked then FileReplaceString(ExpandConstant('{app}\EXE\dacom.ini'),';console.dll','console.dll')
+  else FileReplaceString(ExpandConstant('{app}\EXE\dacom.ini'),'console.dll',';console.dll')
 end;
 
 // Gets the path of a file in the My Games\Freelancer(HD) directory
@@ -360,114 +406,132 @@ ExplosionsPath := ExpandConstant('{app}\DATA\FX\')
 
 if MissileEffects.Checked then
   begin
-    // Rename vanilla ones
-    RenameFile(MissilePath + 'br_empmissile.ale',MissilePath + 'br_empmissile_vanilla.ale')
-    RenameFile(MissilePath + 'br_missile01.ale',MissilePath + 'br_missile01_vanilla.ale')
-    RenameFile(MissilePath + 'br_missile02.ale',MissilePath + 'br_missile02_vanilla.ale')
-    RenameFile(MissilePath + 'ku_empmissile.ale',MissilePath + 'ku_empmissile_vanilla.ale')
-    RenameFile(MissilePath + 'ku_missile01.ale',MissilePath + 'ku_missile01_vanilla.ale')
-    RenameFile(MissilePath + 'ku_missile02.ale',MissilePath + 'ku_missile02_vanilla.ale')
-    RenameFile(MissilePath + 'ku_torpedo01.ale',MissilePath + 'ku_torpedo01_vanilla.ale')
-    RenameFile(MissilePath + 'li_empmissile.ale',MissilePath + 'li_empmissile_vanilla.ale')
-    RenameFile(MissilePath + 'li_missile01.ale',MissilePath + 'li_missile01_vanilla.ale')
-    RenameFile(MissilePath + 'li_missile02.ale',MissilePath + 'li_missile02_vanilla.ale')
-    RenameFile(MissilePath + 'li_torpedo01.ale',MissilePath + 'li_torpedo01_vanilla.ale')
-    RenameFile(MissilePath + 'pi_missile01.ale',MissilePath + 'pi_missile01_vanilla.ale')
-    RenameFile(MissilePath + 'pi_missile02.ale',MissilePath + 'pi_missile02_vanilla.ale')
-    RenameFile(MissilePath + 'rh_empmissile.ale',MissilePath + 'rh_empmissile_vanilla.ale')
-    RenameFile(MissilePath + 'rh_missile01.ale',MissilePath + 'rh_missile01_vanilla.ale')
-    RenameFile(MissilePath + 'rh_missile02.ale',MissilePath + 'rh_missile02_vanilla.ale')
-
     // Rename new effects
-    RenameFile(MissilePath + 'br_empmissile_new.ale',MissilePath + 'br_empmissile.ale')
-    RenameFile(MissilePath + 'br_missile01_new.ale',MissilePath + 'br_missile01.ale')
-    RenameFile(MissilePath + 'br_missile02_new.ale',MissilePath + 'br_missile02.ale')
-    RenameFile(MissilePath + 'ku_empmissile_new.ale',MissilePath + 'ku_empmissile.ale')
-    RenameFile(MissilePath + 'ku_missile01_new.ale',MissilePath + 'ku_missile01.ale')
-    RenameFile(MissilePath + 'ku_missile02_new.ale',MissilePath + 'ku_missile02.ale')
-    RenameFile(MissilePath + 'ku_torpedo01_new.ale',MissilePath + 'ku_torpedo01.ale')
-    RenameFile(MissilePath + 'li_empmissile_new.ale',MissilePath + 'li_empmissile.ale')
-    RenameFile(MissilePath + 'li_missile01_new.ale',MissilePath + 'li_missile01.ale')
-    RenameFile(MissilePath + 'li_missile02_new.ale',MissilePath + 'li_missile02.ale')
-    RenameFile(MissilePath + 'li_torpedo01_new.ale',MissilePath + 'li_torpedo01.ale')
-    RenameFile(MissilePath + 'pi_missile01_new.ale',MissilePath + 'pi_missile01.ale')
-    RenameFile(MissilePath + 'pi_missile02_new.ale',MissilePath + 'pi_missile02.ale')
-    RenameFile(MissilePath + 'rh_empmissile_new.ale',MissilePath + 'rh_empmissile.ale')
-    RenameFile(MissilePath + 'rh_missile01_new.ale',MissilePath + 'rh_missile01.ale')
-    RenameFile(MissilePath + 'rh_missile02_new.ale',MissilePath + 'rh_missile02.ale')
-  end;
-
-  if ExplosionEffects.Checked then begin
-    // Rename vanilla explosions file
-    RenameFile(ExplosionsPath + 'effects_explosion.ini', ExplosionsPath + 'effects_explosion_vanilla.ini')
-
-    // Rename new explosions file
-    RenameFile(ExplosionsPath + 'effects_explosion_new.ini', ExplosionsPath + 'effects_explosion.ini')
-  end;
-
-  // Rename chosen reflection file
-  if ShinyReflections.Checked then begin
-    RenameFile(ExpandConstant('{app}\DATA\FX\envmapbasic.mat'),ExpandConstant('{app}\DATA\FX\envmapbasic_vanilla.mat'))
-    RenameFile(ExpandConstant('{app}\DATA\FX\envmapbasic_shiny.mat'),ExpandConstant('{app}\DATA\FX\envmapbasic.mat'))
-  end 
-  else if ShiniestReflections.Checked then begin
-    RenameFile(ExpandConstant('{app}\DATA\FX\envmapbasic.mat'),ExpandConstant('{app}\DATA\FX\envmapbasic_vanilla.mat'))
-    RenameFile(ExpandConstant('{app}\DATA\FX\envmapbasic_shinier.mat'),ExpandConstant('{app}\DATA\FX\envmapbasic.mat'))
-  end;
-  
-  // Add player engine trails
-  if EngineTrails.Checked then begin
-    RenameFile(ExpandConstant('{app}\DATA\EQUIPMENT\engine_equip.ini'),ExpandConstant('{app}\DATA\EQUIPMENT\engine_equip_vanilla.ini'))
-    RenameFile(ExpandConstant('{app}\DATA\EQUIPMENT\engine_equip_player_trails.ini'),ExpandConstant('{app}\DATA\EQUIPMENT\engine_equip.ini'))
+    CopyFile(MissilePath + 'br_empmissile_new.ale',MissilePath + 'br_empmissile.ale')
+    CopyFile(MissilePath + 'br_missile01_new.ale',MissilePath + 'br_missile01.ale')
+    CopyFile(MissilePath + 'br_missile02_new.ale',MissilePath + 'br_missile02.ale')
+    CopyFile(MissilePath + 'ku_empmissile_new.ale',MissilePath + 'ku_empmissile.ale')
+    CopyFile(MissilePath + 'ku_missile01_new.ale',MissilePath + 'ku_missile01.ale')
+    CopyFile(MissilePath + 'ku_missile02_new.ale',MissilePath + 'ku_missile02.ale')
+    CopyFile(MissilePath + 'ku_torpedo01_new.ale',MissilePath + 'ku_torpedo01.ale')
+    CopyFile(MissilePath + 'li_empmissile_new.ale',MissilePath + 'li_empmissile.ale')
+    CopyFile(MissilePath + 'li_missile01_new.ale',MissilePath + 'li_missile01.ale')
+    CopyFile(MissilePath + 'li_missile02_new.ale',MissilePath + 'li_missile02.ale')
+    CopyFile(MissilePath + 'li_torpedo01_new.ale',MissilePath + 'li_torpedo01.ale')
+    CopyFile(MissilePath + 'pi_missile01_new.ale',MissilePath + 'pi_missile01.ale')
+    CopyFile(MissilePath + 'pi_missile02_new.ale',MissilePath + 'pi_missile02.ale')
+    CopyFile(MissilePath + 'rh_empmissile_new.ale',MissilePath + 'rh_empmissile.ale')
+    CopyFile(MissilePath + 'rh_missile01_new.ale',MissilePath + 'rh_missile01.ale')
+    CopyFile(MissilePath + 'rh_missile02_new.ale',MissilePath + 'rh_missile02.ale')
+  end
+else
+  begin
+    // Rename vanilla ones
+    CopyFile(MissilePath + 'br_empmissile_vanilla.ale',MissilePath + 'br_empmissile.ale')
+    CopyFile(MissilePath + 'br_missile01_vanilla.ale',MissilePath + 'br_missile01.ale')
+    CopyFile(MissilePath + 'br_missile02_vanilla.ale',MissilePath + 'br_missile02.ale')
+    CopyFile(MissilePath + 'ku_empmissile_vanilla.ale',MissilePath + 'ku_empmissile.ale')
+    CopyFile(MissilePath + 'ku_missile01_vanilla.ale',MissilePath + 'ku_missile01.ale')
+    CopyFile(MissilePath + 'ku_missile02_vanilla.ale',MissilePath + 'ku_missile02.ale')
+    CopyFile(MissilePath + 'ku_torpedo01_vanilla.ale',MissilePath + 'ku_torpedo01.ale')
+    CopyFile(MissilePath + 'li_empmissile_vanilla.ale',MissilePath + 'li_empmissile.ale')
+    CopyFile(MissilePath + 'li_missile01_vanilla.ale',MissilePath + 'li_missile01.ale')
+    CopyFile(MissilePath + 'li_missile02_vanilla.ale',MissilePath + 'li_missile02.ale')
+    CopyFile(MissilePath + 'li_torpedo01_vanilla.ale',MissilePath + 'li_torpedo01.ale')
+    CopyFile(MissilePath + 'pi_missile01_vanilla.ale',MissilePath + 'pi_missile01.ale')
+    CopyFile(MissilePath + 'pi_missile02_vanilla.ale',MissilePath + 'pi_missile02.ale')
+    CopyFile(MissilePath + 'rh_empmissile_vanilla.ale',MissilePath + 'rh_empmissile.ale')
+    CopyFile(MissilePath + 'rh_missile01_vanilla.ale',MissilePath + 'rh_missile01.ale')
+    CopyFile(MissilePath + 'rh_missile02_vanilla.ale',MissilePath + 'rh_missile02.ale')
   end;
 end;
+
+if ExplosionEffects.Checked then
+  begin
+    // Rename new explosions file
+    CopyFile(ExplosionsPath + 'effects_explosion_new.ini', ExplosionsPath + 'effects_explosion.ini')
+  end
+else
+  begin
+    // Rename vanilla explosions file
+    CopyFile(ExplosionsPath + 'effects_explosion_vanilla.ini', ExplosionsPath + 'effects_explosion.ini')
+  end;
+end;
+
+
+// Rename chosen reflection file
+if ShinyReflections.Checked then
+  begin
+    CopyFile(ExpandConstant('{app}\DATA\FX\envmapbasic_shiny.mat'),ExpandConstant('{app}\DATA\FX\envmapbasic.mat'))
+  end 
+else if ShiniestReflections.Checked then
+  begin
+    CopyFile(ExpandConstant('{app}\DATA\FX\envmapbasic_shinier.mat'),ExpandConstant('{app}\DATA\FX\envmapbasic.mat'))
+  end
+else
+  begin
+    CopyFile(ExpandConstant('{app}\DATA\FX\envmapbasic_vanilla.mat'),ExpandConstant('{app}\DATA\FX\envmapbasic.mat'))
+  end;
+  
+// Add player engine trails
+if EngineTrails.Checked then
+  begin
+    CopyFile(ExpandConstant('{app}\DATA\EQUIPMENT\engine_equip_player_trails.ini'),ExpandConstant('{app}\DATA\EQUIPMENT\engine_equip.ini'))
+  end
+else
+  begin
+    CopyFile(ExpandConstant('{app}\DATA\EQUIPMENT\engine_equip_vanilla.ini'),ExpandConstant('{app}\DATA\EQUIPMENT\engine_equip.ini'))
+  end;
 
 procedure Process_Planetscape();
 var
   PlanetscapePath: string;
 begin
+  PlanetscapePath := ExpandConstant('{app}\DATA\SCRIPTS\BASES\')
   if PlanetScape.Checked then
     begin
-    PlanetscapePath := ExpandConstant('{app}\DATA\SCRIPTS\BASES\')
-    // Rename vanilla ones
-    RenameFile(PlanetscapePath + 'br_01_cityscape_hardpoint_01.thn',PlanetscapePath + 'br_01_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'br_02_cityscape_hardpoint_01.thn',PlanetscapePath + 'br_02_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'br_03_cityscape_hardpoint_01.thn',PlanetscapePath + 'br_03_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'bw_01_cityscape_hardpoint_01.thn',PlanetscapePath + 'bw_01_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'bw_02_cityscape_hardpoint_01.thn',PlanetscapePath + 'bw_02_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'hi_01_cityscape_hardpoint_01.thn',PlanetscapePath + 'hi_01_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'hi_02_cityscape_hardpoint_01.thn',PlanetscapePath + 'hi_02_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'ku_01_cityscape_hardpoint_01.thn',PlanetscapePath + 'ku_01_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'ku_02_cityscape_hardpoint_01.thn',PlanetscapePath + 'ku_02_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'ku_03_cityscape_hardpoint_01.thn',PlanetscapePath + 'ku_03_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'li_01_cityscape_hardpoint_01.thn',PlanetscapePath + 'li_01_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'li_02_cityscape_hardpoint_01.thn',PlanetscapePath + 'li_02_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'li_03_cityscape_hardpoint_01.thn',PlanetscapePath + 'li_03_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'li_04_cityscape_hardpoint_01.thn',PlanetscapePath + 'li_04_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'rh_01_cityscape_hardpoint_01.thn',PlanetscapePath + 'rh_01_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'rh_02_cityscape_hardpoint_01.thn',PlanetscapePath + 'rh_02_cityscape_hardpoint_01_vanilla.thn')
-    RenameFile(PlanetscapePath + 'rh_03_cityscape_hardpoint_01.thn',PlanetscapePath + 'rh_03_cityscape_hardpoint_01_vanilla.thn')
-
-    // Rename new PlanetScapes
-    RenameFile(PlanetscapePath + 'br_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'br_01_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'br_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'br_02_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'br_03_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'br_03_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'bw_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'bw_01_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'bw_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'bw_02_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'hi_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'hi_01_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'hi_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'hi_02_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'ku_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'ku_01_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'ku_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'ku_02_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'ku_03_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'ku_03_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'li_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'li_01_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'li_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'li_02_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'li_03_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'li_03_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'li_04_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'li_04_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'rh_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'rh_01_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'rh_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'rh_02_cityscape_hardpoint_01.thn')
-    RenameFile(PlanetscapePath + 'rh_03_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'rh_03_cityscape_hardpoint_01.thn')
+      // Rename new PlanetScapes
+      CopyFile(PlanetscapePath + 'br_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'br_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'br_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'br_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'br_03_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'br_03_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'bw_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'bw_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'bw_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'bw_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'hi_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'hi_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'hi_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'hi_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'ku_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'ku_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'ku_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'ku_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'ku_03_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'ku_03_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'li_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'li_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'li_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'li_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'li_03_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'li_03_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'li_04_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'li_04_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'rh_01_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'rh_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'rh_02_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'rh_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'rh_03_cityscape_hardpoint_01_169.thn',PlanetscapePath + 'rh_03_cityscape_hardpoint_01.thn')
+    end
+  else
+    begin
+      CopyFile(PlanetscapePath + 'br_01_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'br_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'br_02_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'br_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'br_03_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'br_03_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'bw_01_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'bw_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'bw_02_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'bw_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'hi_01_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'hi_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'hi_02_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'hi_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'ku_01_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'ku_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'ku_02_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'ku_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'ku_03_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'ku_03_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'li_01_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'li_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'li_02_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'li_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'li_03_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'li_03_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'li_04_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'li_04_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'rh_01_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'rh_01_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'rh_02_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'rh_02_cityscape_hardpoint_01.thn')
+      CopyFile(PlanetscapePath + 'rh_03_cityscape_hardpoint_01_vanilla.thn',PlanetscapePath + 'rh_03_cityscape_hardpoint_01.thn')
     end;
 end;
+
+// CONTINUE
 
 procedure Process_DrawDistances();
 var
